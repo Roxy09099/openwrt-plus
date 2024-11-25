@@ -228,7 +228,7 @@ src-git telephony https://$github/openwrt/telephony.git$telephony
 src-git wwan https://github.com/immortalwrt/wwan-packages.git
 EOF
 echo "src-git wwan https://github.com/immortalwrt/wwan-packages.git" >> ./openwrt/feeds.conf.default
-sed -i 's/192.168.1.1/192.168.15.1/g' package/base-files/files/bin/config_generate
+#sed -i 's/192.168.1.1/192.168.15.1/g' package/base-files/files/bin/config_generate
 
 # Init feeds
 [ "$(whoami)" = "runner" ] && group "feeds update -a"

@@ -92,7 +92,7 @@ elif [ "$1" = "rc2" ]; then
 fi
 
 # lan
-[ -n "$LAN" ] && export LAN=$LAN || export LAN=10.0.0.1
+[ -n "$LAN" ] && export LAN=$LAN || export LAN=192.168.15.1
 
 # platform
 [ "$2" = "armv8" ] && export platform="armv8" toolchain_arch="aarch64_generic"
@@ -138,7 +138,7 @@ elif [ "$platform" = "armv8" ]; then
     [ "$1" = "rc2" ] && model="armv8"
 elif [ "$platform" = "bcm53xx" ]; then
     echo -e "${GREEN_COLOR}Model: netgear_r8500${RES}"
-    [ "$LAN" = "10.0.0.1" ] && export LAN="192.168.1.1"
+    [ "$LAN" = "192.168.15.1" ] && export LAN="192.168.1.1"
 elif [ "$platform" = "rk3568" ]; then
     echo -e "${GREEN_COLOR}Model: nanopi-r5s/r5c${RES}"
     [ "$1" = "rc2" ] && model="nanopi-r5s"
@@ -157,7 +157,7 @@ echo -e "${GREEN_COLOR}Kernel: $kmodpkg_name ${RES}"
 
 echo -e "${GREEN_COLOR}Date: $CURRENT_DATE${RES}\r\n"
 echo -e "${GREEN_COLOR}GCC VERSION: $gcc_version${RES}"
-[ -n "$LAN" ] && echo -e "${GREEN_COLOR}LAN: $LAN${RES}" || echo -e "${GREEN_COLOR}LAN: 10.0.0.1${RES}"
+[ -n "$LAN" ] && echo -e "${GREEN_COLOR}LAN: $LAN${RES}" || echo -e "${GREEN_COLOR}LAN: 192.168.15.1${RES}"
 [ "$ENABLE_GLIBC" = "y" ] && echo -e "${GREEN_COLOR}Standard C Library:${RES} ${BLUE_COLOR}glibc${RES}" || echo -e "${GREEN_COLOR}Standard C Library:${RES} ${BLUE_COLOR}musl${RES}"
 [ "$ENABLE_OTA" = "y" ] && echo -e "${GREEN_COLOR}ENABLE_OTA: true${RES}" || echo -e "${GREEN_COLOR}ENABLE_OTA:${RES} ${YELLOW_COLOR}false${RES}"
 [ "$ENABLE_DPDK" = "y" ] && echo -e "${GREEN_COLOR}ENABLE_DPDK: true${RES}" || echo -e "${GREEN_COLOR}ENABLE_DPDK:${RES} ${YELLOW_COLOR}false${RES}"
@@ -228,6 +228,7 @@ src-git telephony https://$github/openwrt/telephony.git$telephony
 src-git wwan https://github.com/immortalwrt/wwan-packages.git
 EOF
 echo "src-git wwan https://github.com/immortalwrt/wwan-packages.git" >> ./openwrt/feeds.conf.default
+sed -i 's/192.168.1.1/192.168.15.1/g' package/base-files/files/bin/config_generate
 
 # Init feeds
 [ "$(whoami)" = "runner" ] && group "feeds update -a"

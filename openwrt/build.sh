@@ -225,7 +225,9 @@ src-git packages https://$github/openwrt/packages.git$packages
 src-git luci https://$github/openwrt/luci.git$luci
 src-git routing https://$github/openwrt/routing.git$routing
 src-git telephony https://$github/openwrt/telephony.git$telephony
+src-git wwan https://github.com/immortalwrt/wwan-packages.git
 EOF
+echo "src-git wwan https://github.com/immortalwrt/wwan-packages.git" >> ./openwrt/feeds.conf.default
 
 # Init feeds
 [ "$(whoami)" = "runner" ] && group "feeds update -a"
